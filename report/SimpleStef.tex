@@ -1,0 +1,579 @@
+% Hey, if you're using this preamble it means that it was probably written by Stefano Graziosi (me). If you see something that doesn't make sense, feel free to email me at stefano.graziosi@studbocconi.it
+% p.s. in case it's not already evident from the preamble, I'm not a professional LaTeX user, so I'm sure there are better ways to do things. I'm just trying to make it work.
+
+% =============================================================================
+%  LAST UPDATE: 16-08-2026
+% =============================================================================
+
+% I don't own copyright on anything; credits to original authors.
+
+% =============================================================================
+%  1. ENCODING, FONTS & PAGE LAYOUT
+% =============================================================================
+
+% Encoding and fonts
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{mathrsfs}
+
+% Page layout and document formatting
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage[normalem]{ulem}
+
+% Titles and PDF inclusion
+\usepackage{titlesec}
+\usepackage{titlepic}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{pdfpages}
+
+% Dummy text / extras
+\usepackage{kantlipsum}
+
+% =============================================================================
+%  2. COLORS & BOXES
+% =============================================================================
+
+\usepackage[many]{tcolorbox}
+
+% Custom palette
+\definecolor{sgblue}{RGB}{0,169,211}
+\definecolor{sggreen}{RGB}{0,164,0}
+\definecolor{sgpurple}{RGB}{99,0,165}
+\definecolor{sgyellow}{RGB}{255,211,0}
+\definecolor{sgorange}{RGB}{255,127,20}
+\definecolor{sbblue}{RGB}{219,248,254}
+\definecolor{sbgreen}{RGB}{223,255,218}
+\definecolor{sbpurple}{RGB}{241,220,255}
+
+% =============================================================================
+%  3. MATHEMATICS, SYMBOLS & THEOREM INFRASTRUCTURE
+% =============================================================================
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{thmtools}
+\usepackage{stmaryrd}
+\usepackage[version=4]{mhchem}
+\usepackage{halloweenmath}
+
+% =============================================================================
+%  4. TABLES
+% =============================================================================
+
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{siunitx}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\sisetup{
+    round-mode=places,
+    round-precision=3,
+    table-number-alignment=center
+}
+
+% =============================================================================
+%  5. FIGURES, DIAGRAMS & PLOTS
+% =============================================================================
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[export]{adjustbox}
+
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    labelsep=period
+}
+
+% Diagrams
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{calc,arrows.meta,positioning}
+
+% Optional speed-up for heavy documents; requires -shell-escape
+% \usetikzlibrary{external}
+% \tikzexternalize[prefix=tikzcache/]
+
+% Plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+% =============================================================================
+%  6. VERBATIM & CODE TOOLS
+% =============================================================================
+
+\usepackage{listings}
+\usepackage{fvextra}
+\usepackage{codehigh}
+
+% =============================================================================
+%  7. QUOTATIONS
+% =============================================================================
+
+\usepackage{csquotes}
+
+% =============================================================================
+%  8. HYPERLINKS, BOOKMARKS & CROSS-REFERENCES
+% =============================================================================
+
+% Keep hyperlink-related packages late in the package-loading sequence.
+\usepackage{hyperref}
+\hypersetup{
+    pdftitle={\jobname},
+    pdfauthor={Stefano Graziosi},
+    hypertexnames=false,
+    colorlinks=true,
+    linkcolor=MidnightBlue,
+    citecolor=ForestGreen,
+    urlcolor=sgpurple
+}
+
+\usepackage{bookmark}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+% =============================================================================
+%  9. NUMBERING
+% =============================================================================
+
+% Equations numbered within sections
+\numberwithin{equation}{section} % or \counterwithin{equation}{section}
+
+% Figures and tables numbered within sections
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\renewcommand{\thetable}{\thesection-\arabic{table}}
+
+% Keep running heads compact even when chapter and section titles are long. 
+\renewcommand{\footrulewidth}{0pt}  
+% Article-like classes do not define \chaptermark, so only customize it when
+% the selected document class supports chapters.
+\makeatletter
+\@ifundefined{chaptermark}{}{%
+    \renewcommand{\chaptermark}[1]{\markboth{Chapter~\thechapter}{}}%
+}
+\@ifundefined{sectionmark}{%
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\quad #1}}
+}{%
+    \renewcommand{\sectionmark}[1]{\markright{\thesection\quad #1}}
+}
+\makeatother
+\setlength{\headheight}{14pt}
+
+% Give dense prose a little extra flexibility and avoid stretched page bottoms.
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+
+% =============================================================================
+%  10. GENERIC BOX ENVIRONMENT
+% =============================================================================
+
+% Standard LaTeX box with color accents
+\newtcolorbox{mybox}[3][]{
+    colframe=#2!25,
+    colback=#2!10,
+    coltitle=#2!20!black,
+    title={#3},
+    #1,
+}
+
+% =============================================================================
+%  11. BASIC PROBLEM / SOLUTION ENVIRONMENTS
+% =============================================================================
+
+% "Problem" environment
+\newtheorem{problem}{Problem}
+
+% Personalized "Solution" environment
+\newenvironment{solution}[1][\it{\textcolor{MidnightBlue}{Solution}}]
+    {\textbf{#1. } }
+    {\textcolor{MidnightBlue}{$\square$}}
+
+% =============================================================================
+%  12. THEOREM STYLES & BOXED PRESENTATION
+% =============================================================================
+
+% Helper length for theorem-heading alignment.
+\newlength{\spacelength}
+\settowidth{\spacelength}{\normalfont\ }
+
+% Common tcolorbox settings. These only remove repeated code; the individual
+% environments below retain the same colours, borders, backgrounds and spacing.
+\tcbset{
+    sg theorem base/.style={
+        boxrule=0pt,
+        boxsep=0pt,
+        before skip=10pt,
+        after skip=10pt,
+        left=5pt,
+        right=5pt,
+        breakable,
+    },
+    sg theorem filled/.style={
+        sg theorem base,
+        enhanced jigsaw,
+        sharp corners,
+    },
+    sg theorem blank/.style={
+        blanker,
+        sg theorem base,
+        sharp corners,
+    },
+}
+
+% -----------------------------------------------------------------------------
+% Main theorem style
+% -----------------------------------------------------------------------------
+
+\declaretheoremstyle[
+    headfont={\bfseries\sffamily\footnotesize},
+    notefont={\normalfont},
+    bodyfont={\normalfont},
+    headpunct={\relax},
+    headformat={%
+        \makebox[0pt][r]{\NAME\ \NUMBER\hspace{\marginparsep}}%
+        \hskip-\spacelength{\normalsize\NOTE}%
+    },
+]{theorem}
+
+% thmtools' \declaretheoremstyle is a front-end to the theorem-style backend
+% supplied by amsthm, so this style can also be selected with \theoremstyle.
+
+% Theorem
+\declaretheorem[style=theorem]{theorem}
+\tcolorboxenvironment{theorem}{
+    sg theorem filled,
+    colback={White!94!ForestGreen},
+    borderline west={1pt}{0pt}{ForestGreen},
+}
+
+% Proposition
+\declaretheorem[style=theorem]{proposition}
+\tcolorboxenvironment{proposition}{
+    sg theorem filled,
+    colback={White!94!Mulberry},
+    borderline west={1pt}{0pt}{Mulberry},
+}
+
+% -----------------------------------------------------------------------------
+% Proof style
+% -----------------------------------------------------------------------------
+
+% amsthm already defines proof, so neutralize it before redeclaring it.
+\let\proof\relax
+\let\endproof\relax
+
+\declaretheoremstyle[
+    headfont={\small\scshape},
+    notefont={\normalfont},
+    bodyfont={\normalfont},
+    headpunct={\relax},
+    headformat={%
+        \makebox[0pt][r]{\NAME\hspace{\marginparsep}}%
+        \hskip-\spacelength{\NOTE}%
+    },
+]{proof}
+
+\tcolorboxenvironment{proof}{
+    blanker,
+    sg theorem base,
+    borderline west={1pt}{0pt}{black},
+}
+
+\declaretheorem[style=proof,qed=\qedsymbol]{proof}
+
+% -----------------------------------------------------------------------------
+% Claim / intuition style
+% -----------------------------------------------------------------------------
+
+\declaretheoremstyle[
+    headfont={\footnotesize\itshape},
+    notefont={\normalfont},
+    bodyfont={\normalfont},
+    headpunct={\relax},
+    headformat={%
+        \makebox[0pt][r]{\NAME\hspace{\marginparsep}}%
+        \hskip-\spacelength{\NOTE}%
+    },
+]{claim}
+
+% Capital-I Intuition environment (kept for backwards compatibility)
+\declaretheorem[style=claim]{Intuition}
+
+% -----------------------------------------------------------------------------
+% Additional theorem-like environments
+% -----------------------------------------------------------------------------
+
+% Since the styles above are registered with the amsthm backend, selecting the
+% "theorem" style here is intentional and valid.
+\theoremstyle{theorem}
+
+% Numbered Question (unboxed)
+\newtheorem{ques}{Question}
+
+% Definition
+\newtheorem{definition}{Definition}
+\tcolorboxenvironment{definition}{
+    sg theorem filled,
+    colback={White!94!Cerulean},
+    borderline west={1pt}{0pt}{Cerulean},
+}
+
+% Lemma
+\newtheorem{lemma}{Lemma}
+\tcolorboxenvironment{lemma}{
+    sg theorem blank,
+    borderline west={1pt}{0pt}{Rhodamine},
+}
+
+% Remark
+\newtheorem{remark}{Remark}
+\tcolorboxenvironment{remark}{
+    sg theorem filled,
+    colback={White!94!BurntOrange},
+    borderline west={1pt}{0pt}{BurntOrange},
+}
+
+% Hint
+\newtheorem{hint}{Hint}
+\tcolorboxenvironment{hint}{
+    sg theorem filled,
+    colback={White},
+    borderline west={1pt}{0pt}{BurntOrange},
+}
+
+% Warning
+\newtheorem{warning}{Warning}
+\tcolorboxenvironment{warning}{
+    sg theorem filled,
+    colback={White},
+    borderline west={1pt}{0pt}{red},
+}
+
+% Disclaimer
+\newtheorem{disclaimer}{Disclaimer}
+\tcolorboxenvironment{disclaimer}{
+    sg theorem filled,
+    colback={White},
+    borderline west={1pt}{0pt}{red},
+}
+
+% Unnumbered Question
+\newtheorem*{question}{Question}
+\tcolorboxenvironment{question}{
+    sg theorem filled,
+    colback={White},
+    borderline west={1pt}{0pt}{red},
+}
+
+% Corollary
+\newtheorem{corollary}{Corollary}
+\tcolorboxenvironment{corollary}{
+    sg theorem filled,
+    borderline west={1pt}{0pt}{WildStrawberry},
+}
+
+% Example
+\newtheorem{example}{Example}
+\tcolorboxenvironment{example}{
+    sg theorem blank,
+    borderline west={1pt}{0pt}{Dandelion},
+}
+
+% Lowercase helper environments (kept for backwards compatibility)
+\theoremstyle{claim}
+\newtheorem{intu}{Intuition}
+\newtheorem{solu}{Solution}
+
+% =============================================================================
+%  CODE LISTINGS - GENERAL
+% =============================================================================
+
+% 1. Define your custom colors (Ensuring they are defined)
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+% A specific color for Stata functions (to differentiate from commands)
+\definecolor{statafunction}{rgb}{0.2,0.2,0.7} 
+
+% 2. The Improved Stata Language Definition
+\lstdefinelanguage{Stata}{
+    sensitive=true,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]",
+    morestring=[d]",
+    morestring=[b]{`}{'},
+    % Group 1: System/Flow (if, else, foreach, program, python)
+    morekeywords=[1]{
+        if, else, in, using, of, varlist, everything, foreach, forvalues, 
+        while, continue, break, program, syntax, return, ereturn, sreturn, 
+        args, capture, noisily, quietly, set, version, global, local, scalar, 
+        matrix, mat, frame, python, java, putexcel, collect, do, run, ado, 
+        clear, exit,
+    },
+    % Group 2: Data Manipulation (gen, egen, sort, merge)
+    morekeywords=[2]{
+        generate, gen, replace, egen, rename, ren, drop, keep, sort, bysort, 
+        order, collapse, merge, append, reshape, encode, decode, destring, 
+        tostring, recode, mvencode, mvdecode, use, save, import, export, 
+        infile, infix, describe, desc, list, count, inspect, codebook, label, 
+        notes, compress, format, cast,
+    },
+    % Group 3: Statistics (reg, sum, mixed, lasso, bayes)
+    morekeywords=[3]{
+        regress, reg, summarize, sum, tabulate, tab, logit, probit, tobit, 
+        poisson, nbreg, xtreg, xtlogit, xtpoisson, xtset, xtdescribe, mixed, 
+        meqrlogit, mepoisson, ivregress, areg, rreg, qreg, lasso, elasticnet, 
+        bayes, bayesmh, meta, predict, predictnl, margins, marginsplot, test, 
+        testnl, lincom, nlcom, contrast, pwcompare, estat, estimates, est, 
+        pwcorr, correlate, corr, ttest, anova, oneway,
+    },
+    % Group 4: Graphics (twoway, scatter)
+    morekeywords=[4]{
+        graph, twoway, scatter, line, connected, bar, hbar, box, hbox, pie, 
+        histogram, kdensity, function, title, subtitle, xtitle, ytitle, 
+        legend, xlabel, ylabel, note, caption, saving,
+    },
+    % Group 5: Reserved/Types (byte, double, _n)
+    morekeywords=[5]{
+        byte, int, long, float, double, str, strL, c, _N, _n, _rc, _all, 
+        aggregate, array, boolean, class, colvector, complex, const, delegate, 
+        delete, eltypedef, enum, explicit, external, friend, inline, mata, 
+        namespace, new, numeric, NULL, operator, orgtypedef, pointer, 
+        polymorphic, pragma, private, protected, public, quad, real, 
+        rowvector, short, signed, static, struct, super, switch, template, 
+        this, throw, transmorphic, try, typedef, typename, union, unsigned, 
+        vector, virtual, void, volatile,
+    },
+    % Groups 6-12: Functions (Dates, Math, Matrix, Strings)
+    morekeywords=[6]{
+        bofd, Cdhms, Chms, Clock, clock, Cmdyhms, Cofc, cofC, Cofd, cofd, 
+        daily, date, day, dhms, dofb, dofC, dofc, dofh, dofm, dofq, dofw, 
+        dofy, dow, doy, halfyear, halfyearly, hh, hhC, hms, hofd, hours, 
+        mdy, mdyhms, minutes, mm, mmC, mofd, month, monthly, msofhours, 
+        msofminutes, msofseconds, qofd, quarter, quarterly, seconds, ss, 
+        ssC, tC, tc, td, th, tm, tq, tw, week, weekly, wofd, year, yearly, 
+        yh, ym, yofd, yq, yw,
+    },
+    morekeywords=[7]{
+        abs, ceil, cloglog, comb, digamma, exp, expm1, floor, invcloglog, 
+        invlogit, ln, ln1m, ln1p, lnfactorial, lngamma, log, log10, log1m, 
+        log1p, logit, max, min, mod, reldif, round, sign, sqrt, trigamma, 
+        trunc, rbeta, rbinomial, rcauchy, rchi2, rexponential, rgamma, 
+        rhypergeometric, rigaussian, rlaplace, rlogistic, rnbinomial, 
+        rnormal, rpoisson, rt, runiform, runiformint, rweibull, rweibullph, 
+        tin, twithin,
+    },
+    morekeywords=[8]{
+        cholesky, coleqnumb, colnfreeparms, colnumb, colsof, det, diag, 
+        diag0cnt, el, get, hadamard, I, inv, invsym, issymmetric, J, 
+        matmissing, matuniform, mreldif, nullmat, roweqnumb, rownfreeparms, 
+        rownumb, rowsof, sweep, trace, vec, vecdiag,
+    },
+    morekeywords=[9]{
+        abbrev, char, collatorlocale, collatorversion, indexnot, plural, 
+        regexm, regexr, regexs, soundex, soundex_nara, strcat, strdup, 
+        string, stritrim, strlen, strlower, strltrim, strmatch, strofreal, 
+        strpos, strproper, strreverse, strrpos, strrtrim, strtoname, strtrim, 
+        strupper, subinstr, subinword, substr, tobytes, uchar, udstrlen, 
+        udsubstr, uisdigit, uisletter, ustrcompare, ustrcompareex, ustrfix, 
+        ustrfrom, ustrinvalidcnt, ustrleft, ustrlen, ustrlower, ustrltrim, 
+        ustrnormalize, ustrpos, ustrregexm, ustrregexra, ustrregexrf, 
+        ustrregexs, ustrreverse, ustrright, ustrrpos, ustrrtrim, 
+        ustrsortkey, ustrsortkeyex, ustrtitle, ustrto, ustrtohex, 
+        ustrtoname, ustrtrim, ustrunescape, ustrupper, ustrword, 
+        ustrwordcount, usubinstr, usubstr, word, wordbreaklocale, wordcount,
+    },
+    morekeywords=[10]{
+        acos, acosh, asin, asinh, atan, atanh, cos, cosh, sin, sinh, tan, 
+        tanh,
+    },
+    morekeywords=[11]{
+        betaden, binomial, binomialp, binomialtail, binormal, cauchy, 
+        cauchyden, cauchytail, chi2, chi2den, chi2tail, dunnettprob, 
+        exponential, exponentialden, exponentialtail, F, Fden, Ftail, 
+        gammaden, gammap, gammaptail, hypergeometric, hypergeometricp, 
+        ibeta, ibetatail, igaussian, igaussianden, igaussiantail, 
+        invbinomial, invbinomialtail, invcauchy, invcauchytail, invchi2, 
+        invchi2tail, invdunnettprob, invexponential, invexponentialtail, 
+        invF, invFtail, invgammap, invgammaptail, invibeta, invibetatail, 
+        invigaussian, invigaussiantail, invlaplace, invlaplacetail, 
+        invlogistic, invlogistictail, invnbinomial, invnbinomialtail, 
+        invnchi2, invnF, invnFtail, invnibeta, invnormal, invnt, invnttail, 
+        invpoisson, invpoissontail, invt, invttail, invtukeyprob, 
+        invweibull, invweibullph, invweibullphtail, invweibulltail, laplace, 
+        laplaceden, laplacetail, lncauchyden, lnigammaden, lnigaussianden, 
+        lniwishartden, lnlaplaceden, lnmvnormalden, lnnormal, lnnormalden, 
+        lnwishartden, logistic, logisticden, logistictail, nbetaden, 
+        nbinomial, nbinomialp, nbinomialtail, nchi2, nchi2den, nchi2tail, 
+        nF, nFden, nFtail, nibeta, normal, normalden, npnchi2, npnF, npnt, 
+        nt, ntden, nttail, poisson, poissonp, poissontail, t, tden, ttail, 
+        tukeyprob, weibull, weibullden, weibullph, weibullphden, 
+        weibullphtail, weibulltail,
+    },
+    morekeywords=[12]{
+        autocode, byteorder, _caller, chop, clip, cond, e, fileexists, 
+        fileread, filereaderror, filewrite, fmtwidth, has_eprop, inlist, 
+        inrange, irecode, maxbyte, maxdouble, maxfloat, maxint, maxlong, mi, 
+        minbyte, mindouble, minfloat, minint, minlong, missing, r, recode, 
+        replay, smallestdouble,
+    }
+}
+
+% 3. Your Style (Updated to include the new groups)
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    stringstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    % --- KEYWORD MAPPING ---
+    % Groups 1-4 are COMMANDS (regress, gen, etc.) -> Use your Magenta
+    keywordstyle=[1]\color{magenta},
+    keywordstyle=[2]\color{magenta},
+    keywordstyle=[3]\color{magenta},
+    keywordstyle=[4]\color{magenta},
+    % Group 5 are TYPES (float, int) -> Use Blue or Magenta (User choice)
+    keywordstyle=[5]\color{blue}, 
+    % Groups 6-12 are FUNCTIONS (sum(), max()) -> Use a distinct color 
+    % (Using Magenta here looks confusing as they look like commands). 
+    % I selected 'statafunction' (defined above) which is a nice blue/purple.
+    keywordstyle=[6]\color{statafunction},
+    keywordstyle=[7]\color{statafunction},
+    keywordstyle=[8]\color{statafunction},
+    keywordstyle=[9]\color{statafunction},
+    keywordstyle=[10]\color{statafunction},
+    keywordstyle=[11]\color{statafunction},
+    keywordstyle=[12]\color{statafunction},
+}
+
+\lstset{style=mystyle}

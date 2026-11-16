@@ -1,0 +1,130 @@
+\documentclass[11pt,a4paper]{article}
+\input{SimpleStef}
+
+% =============================================================================
+%  Note-specific settings
+% =============================================================================
+\hypersetup{pdftitle={Rising US Yields: The Fault Lines Have Moved}}
+% More subtle colours
+\definecolor{exgray}{HTML}{5E5E5E}
+\definecolor{notenavy}{HTML}{1F3A5F}
+\hypersetup{linkcolor=notenavy}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\linespread{1.04}
+\titleformat{\section}{\normalfont\bfseries\color{notenavy}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{9pt}{1pt}
+
+% Exhibits
+\counterwithout{figure}{section}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\figurename}{Exhibit}
+\DeclareCaptionFont{navy}{\color{notenavy}}
+\captionsetup[figure]{position=top, labelsep=colon, font=small, labelfont={bf,navy}, textfont={bf,navy},
+  justification=raggedright, singlelinecheck=false, skip=1pt}
+\newcommand{\exsub}[1]{{\footnotesize\color{exgray}#1\par}\vspace{4pt}}
+\newcommand{\exnote}[2]{\vspace{2pt}{\scriptsize\color{exgray}#1\par #2\par}}
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+
+% Title block (taking away less space)
+\makeatletter
+\renewcommand{\@maketitle}{%
+  {\centering
+    {\LARGE \@title \par}
+    \vskip 0.7em
+    {\lineskip .2em \begin{tabular}[t]{c}\@author\end{tabular}\par}}
+  \vskip 0.6em}
+\makeatother
+% I need this to make the footnote fit
+\setlength{\skip\footins}{7pt plus 2pt minus 2pt}
+
+% Key points
+\newtcolorbox{keypoints}{colback=notenavy!5, colframe=notenavy, boxrule=0.5pt, arc=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt}
+\newcommand{\kp}[1]{\textbf{\color{notenavy}#1}}
+
+% Running heads
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small Rising US Yields: The Fault Lines Have Moved}
+\fancyhead[R]{\small Stefano Graziosi}
+% Fancy foot
+\newcommand{\notedate}{November 2026}
+\fancyfoot[L]{\small\notedate}
+\fancyfoot[C]{\small\thepage}
+\fancypagestyle{first}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[L]{\small\notedate}\fancyfoot[C]{\small\thepage}}
+
+\begin{document}
+
+% =============================================================================
+%  Title block
+% =============================================================================
+\title{\textsc{Rising US Yields: The Fault Lines Have Moved}}
+\author{Stefano Graziosi\thanks{The views expressed are my own and do not necessarily reflect those of the ECB. Public data only.}\\
+  {\small MSc Economic and Social Sciences, Bocconi University}\\
+  {\small Trainee Economist, DG Monetary Policy, European Central Bank}}
+\date{\notedate}
+\maketitle
+\thispagestyle{first}
+
+\begin{keypoints}
+\begin{itemize}[label={\color{notenavy}\textbullet}, leftmargin=1em, itemsep=3pt, topsep=0pt, parsep=0pt]
+  \item \kp{High beta is not high exposure.} Canada, Norway and Sweden move with Treasuries both ways. The exposed markets import US sell-offs but not rallies: the euro periphery, Central Europe and South Africa, and since 2013 the UK and France.
+  \item \kp{The fault line has moved from current accounts to budgets.} Before 2013 the asymmetry tracked current-account deficits; since then it tracks budget deficits.
+  \item \kp{The map still holds, except in Japan.} US 10-year yields are up 113bp since February. Out of sample, only Japan broke out of its usual range, rising 70bp more than Treasuries explain; France came closest to joining it.
+  \item \kp{The rally GS expects would barely reach the exposed markets.} If Treasuries rally to 4.6\% by end-2027, post-2013 betas imply 43bp lower yields in Canada but under 10bp in Italy, and one 50bp sell-off on the way would leave BTPs higher.
+\end{itemize}
+\end{keypoints}
+
+% =============================================================================
+%  Body
+% =============================================================================
+\section*{Who Has Been Most Exposed}
+The usual measure of exposure to Treasuries is a beta: how many basis points a country's 10-year yield moves for every 1bp move in the US 10-year. Since 2000, Canada, Australia and New Zealand have imported 70--80\% of US moves, Germany about 60\%, Switzerland under 40\% and Japan under a fifth.
+
+An average beta, however, hides what an investor cares about: does a market share the rallies as well as the sell-offs? I therefore estimate separate betas for months when US yields rose and fell, a bond-market version of downside beta (Exhibit~\ref{ex:betas}). While Canada, Norway and Sweden move with Treasuries both ways, the euro periphery, Central Europe and South Africa have imported 75--100\% of US sell-offs but at most 30\% of rallies. Since 2013 the UK and France, symmetric before, have joined them: gilts now import sell-offs one-for-one (1.02) but less than half of rallies (0.48).
+
+\begin{figure}[t]
+  \caption{More Markets Now Import US Sell-offs but Not Rallies}\label{ex:betas}
+  \exsub{Beta of each 10-year yield to the US 10-year, in months when US yields rose (sell-off) and fell (rally); bp per bp}
+  \includegraphics[width=\textwidth]{../figures/ex1_selloff_rally_betas.pdf}
+  \exnote{Note: Monthly changes, January 2000 to September 2026; sorted by the 2013--26 gap. Bar colour: the two betas differ at the 10\% level (Wald test, Newey--West standard errors). Monthly averages; end of month for Japan and Switzerland, paired with end-of-month US yields. Betas capture co-movement, including common shocks.}{Source: OECD and Federal Reserve Board, via FRED; author's calculations.}
+\end{figure}
+
+\begin{figure}[t]
+  \caption{Budget Deficits Have Replaced Current Accounts as the Fault Line}\label{ex:fault}
+  \exsub{Asymmetry (sell-off minus rally beta) against the current-account balance before 2013 and the budget balance since; colours as in Exhibit~\ref{ex:betas}}
+  \includegraphics[width=\textwidth]{../figures/ex2_fault_line.pdf}
+  \exnote{Note: One point per market (20 in (a), 21 in (b)); least-squares lines, robust $t$ = $-$1.8 in (a) and $-$2.8 in (b). In (b), adding the current-account balance gives $t$ = 0.1; without Norway the slope is steeper ($-$0.08) but less precise ($t$ = $-$1.5), and the rank correlation is still significant at 5\%.}{Source: IMF World Economic Outlook; OECD and Federal Reserve Board, via FRED; author's calculations.}
+\end{figure}
+
+\section*{Why: Foreign Money and Risk Premia}
+Two arguments have usually explained this. Markets that rely on foreign money lose it when US yields rise, and the `Fragile Five' of 2013 were defined by their current-account deficits. And US yields tend to fall when risk appetite does, which is when sovereign, currency and liquidity premia widen in these markets and offset the rally. The data bear this out: allowing for the VIX roughly halves the post-2013 gap in South Africa, Hungary and Italy, and the gap is widest in stress episodes such as the euro crisis or March 2020.
+
+\section*{From Current Accounts to Budgets}
+The risk-premium argument still holds, but the external one has given way to a fiscal one (Exhibit~\ref{ex:fault}). The 2000--12 asymmetry lined up with current-account deficits. Since 2013 it lines up with budget deficits instead, with each point of deficit adding about 0.06 to the gap, and the current account no longer matters: Spain and Italy swung into current-account surplus, yet became more one-way. That fits the shifts in Exhibit~\ref{ex:betas}: the UK has run the largest average deficit in my G10 sample since 2013, France is in yet another budget fight, and Poland and Hungary, on course for deficits above 7\% of GDP, have more than doubled their sell-off betas. Japan and India are the exceptions: large deficits, but domestic investor bases that do not run.
+
+\begin{figure}[t]
+  \caption{Only Japan Broke From Its History in This Year's Sell-off}\label{ex:test}
+  \exsub{(a) US 10-year yields, \%; (b) rise since February, imported from Treasuries and the rest, bp}
+  \includegraphics[width=\textwidth]{../figures/ex3_test_2026.pdf}
+  \exnote{Note: (a) daily, to 12 November; breakeven is nominal minus TIPS yield. (b) Imported: each month's US move times the market's 2000--25 sell-off or rally beta, summed to September (August for Italy, Czechia and Hungary). Usual range: $\pm$1.645 standard errors (residuals' long-run variance plus the betas' sampling error), from $\pm$39bp (Japan) to $\pm$168bp (Hungary).}{Source: Federal Reserve Board and OECD, via FRED; press reports for the events; author's calculations.}
+\end{figure}
+
+\section*{This Year's Test}
+US 10-year yields have risen 113bp since late February, to 5.10\%, almost all through real yields, while breakevens have not budged even with Brent near \$100 (Exhibit~\ref{ex:test}a). Real-yield moves are the ones that spill over: since 2003, a 1bp rise in US real yields has lifted Italian yields by 0.6bp, a rise in breakevens by only 0.2bp.
+
+Out of sample, the old map held: when I apply each market's pre-2026 betas to this year's monthly US moves, every market but Japan lands within the range its usual noise implies (Exhibit~\ref{ex:test}b). JGB yields rose 70bp more than implied as the BoJ hiked to 1.25\% and investors balked at the government's fiscal plans. France came closest: +52bp, against a range of $\pm$54bp.
+
+\section*{What It Means for Investors}
+First, GS's outlook has the US 10-year at 4.6\% by end-2027, and on post-2013 betas a steady 50bp rally would take Canadian yields down 43bp, gilts 24bp and BTPs less than 10bp, widening BTP–Bund by about 15bp. The path matters too: with one 50bp sell-off on the way, BTPs would end 34bp higher, although over a year local news dominates, with 90\% ranges from $\pm$58bp for Canada to $\pm$220bp for Hungary. Second, periphery carry is short Treasury volatility: since 2000, BTP– and Bono–Bund spreads have widened about 0.1bp per bp when Treasuries sold off and 0.3--0.4bp when they rallied. The main risk is a US-specific sell-off that weakens the dollar, as in April 2025, when Treasuries sold off while Bunds held firm.
+
+\end{document}
